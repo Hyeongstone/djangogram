@@ -13,6 +13,7 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+#사진 저장(게시물)
 class Post(TimeStampedModel):
     author = models.ForeignKey(
                 user_model.User,
@@ -28,14 +29,14 @@ class Post(TimeStampedModel):
                     related_name = 'post_image_likes'
                 )
 
-
+# 댓글 관리
 class Comment(TimeStampedModel):
     author = models.ForeignKey(
             user_model.User,
             null = True,
             #on_delete = 외래키를 갖는 USER가 사라지면 어떻게 처리될것인가
             on_delete=models.CASCADE,
-            related_name = 'post_author'
+            related_name = 'comment_author'
         )
     posts = models.ForeignKey(
             Post,
